@@ -1,9 +1,15 @@
 import type { NextPage } from 'next'
+
+import Button from 'components/atoms/Button'
 import Text from 'components/atoms/Text'
+
 const Home: NextPage = () => {
   return (
     <div>
-      <Text>a</Text>
+      <Text fontSize="16px">これは16pxのテキストです</Text>
+      <Button variant="secondary" color="brack">
+        セカンダリバリアントのボタン
+      </Button>
     </div>
   )
 }
