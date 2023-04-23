@@ -67,7 +67,7 @@ const Footer = () => {
           <nav>
             <Anchor
               as="a"
-              href="https://github.com/gihyo-book/ts-nextbook-app"
+              href="https://github.com/shunakid/glampt"
               target="_blank"
             >
               <GitHubIcon size={22} />
@@ -75,9 +75,7 @@ const Footer = () => {
           </nav>
         </Box>
       </Flex>
-      <Box paddingTop={3} paddingBottom={2}>
-        <Text>© 2021 Gijutsuhyoronsha Co., Ltd.. All rights reserved.</Text>
-      </Box>
+      <Box paddingTop={3} paddingBottom={2}></Box>
     </footer>
   )
 }
