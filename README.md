@@ -16,6 +16,8 @@ npm start
 
 本リポジトリの作業
 
+git clone https://github.com/shunakid/glampt.git
+
 npm ci
 
 npm run dev
