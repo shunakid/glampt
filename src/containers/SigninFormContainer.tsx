@@ -1,7 +1,7 @@
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
 import SigninForm from 'components/organisms/SigninForm'
-import { useAuthContext } from 'contexts/AuthContext'
 import { useGlobalSpinnerActionsContext } from 'contexts/GlobalSpinnerContext'
-
+import { auth } from 'services/firebase/firebase'
 interface SigninFormContainerProps {
   /**
    * サインインした時に呼ばれるイベントハンドラ
@@ -13,18 +13,18 @@ interface SigninFormContainerProps {
  * サインインフォームコンテナ
  */
 const SigninFormContainer = ({ onSignin }: SigninFormContainerProps) => {
-  const { signin } = useAuthContext()
   const setGlobalSpinner = useGlobalSpinnerActionsContext()
   // サインインボタンを押された時のイベントハンドラ
-  const handleSignin = async (username: string, password: string) => {
+
+  const handleGoogleSignin = async () => {
+    const provider = new GoogleAuthProvider()
+
     try {
-      // ローディングスピナーを表示する
       setGlobalSpinner(true)
-      await signin(username, password)
+      await signInWithPopup(auth, provider)
       onSignin && onSignin()
     } catch (err: unknown) {
       if (err instanceof Error) {
-        // エラーの内容を表示
         window.alert(err.message)
         onSignin && onSignin(err)
       }
@@ -33,7 +33,21 @@ const SigninFormContainer = ({ onSignin }: SigninFormContainerProps) => {
     }
   }
 
-  return <SigninForm onSignin={handleSignin} />
+  const handleSignout = async () => {
+    try {
+      await signOut(auth)
+      // ログアウト成功時の処理をここに追加
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        // エラーの内容を表示
+        window.alert(err.message)
+      }
+    }
+  }
+
+  return (
+    <SigninForm onGoogleSignin={handleGoogleSignin} onSignout={handleSignout} />
+  )
 }
 
 export default SigninFormContainer
